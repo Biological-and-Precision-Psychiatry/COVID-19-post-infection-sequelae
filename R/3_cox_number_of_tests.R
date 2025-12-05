@@ -33,24 +33,10 @@
 # tmerge_data
 # test_data[, .(id, d_test, f_test, n_test_seq)]
 
-# Libraries --------------------------------------------------------------------
+# Packages --------------------------------------------------------------------
 library(data.table) # For data handling
 library(survival)   # For coxph and tmerge
 library(emmeans)    # For emmeans and pairs 
-
-# Functions --------------------------------------------------------------------
-convert_date_to_numeric <- function(date) {
-  if(!is(date, "Date")) {
-    date <- as.Date(date)
-    if(!is(date, "Date")) stop("Failed to coerce 'date' to class 'Date'")
-  }
-  yr <- year(date)
-  dstart <- unclass(as.Date(paste0(yr, "-01-01"), format = "%Y-%m-%d"))
-  dend <- unclass(as.Date(paste0(yr + 1, "-01-01"), format = "%Y-%m-%d"))
-  days_yr <- dend - dstart
-  days <- unclass(date) - dstart
-  yr + days / days_yr
-}
 
 # Format test data -------------------------------------------------------------
 # Add baseline row for all individuals:
