@@ -1,6 +1,6 @@
 # COVID-19-post-infection-sequelae
 
-Paper: COVID-19 post-infection sequelae are comparable to sequelae observed after other infections of similar severity --- a nationwide Danish study with 40-month follow-up
+Paper: COVID-19 post-infection sequelae are comparable to sequelae observed after other infections of similar severity -- a nationwide Danish study with 40-month follow-up
 
 - Authors: [Clara S. Grønkjær](https://github.com/claragronkjar), 
 [Rune H. B. Christensen](https://github.com/runehaubo), 
@@ -33,7 +33,7 @@ The R-scripts listed below are available in the `R` folder in this repository. T
 
 ## Requirements:
 
-- [R](www.r-project.org) 
+- [R](https://www.r-project.org/) 
 - [RStudio](https://posit.co/download/rstudio-desktop/) (optional but recommended)
 - Required R packages all available on [CRAN](https://cran.r-project.org/) are explicitly loaded in each of the R-scripts
 
