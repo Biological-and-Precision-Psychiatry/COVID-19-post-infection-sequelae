@@ -1,6 +1,6 @@
 # COVID-19-post-infection-sequelae
 
-Paper: COVID-19 post-infection sequelae are comparable to sequelae observed after other infections of similar severity---a nationwide Danish study with 40-month follow-up
+Paper: COVID-19 post-infection sequelae are comparable to sequelae observed after other infections of similar severity — a nationwide Danish study with 40-month follow-up
 
 - Authors: [Clara S. Grønkjær](https://github.com/claragronkjar), 
 [Rune H. B. Christensen](https://github.com/runehaubo), 
@@ -14,7 +14,7 @@ Paper: COVID-19 post-infection sequelae are comparable to sequelae observed afte
 
 The R-scripts listed below are available in the `R` folder in this repository. The files contain code that reproduces key analyses of the paper. The data to run the code cannot be made publicly available so the code will not run outside of the computing environment provided by [Statistics Denmark](https://www.dst.dk/en/)
 
-- `1_make_time_varying_data.R`: 
+- [`1_make_time_varying_data.R`](R/1_time_varying_data.R): 
   This program creates the time-varying data used for the analyses.
   Requirements: Population and covariate data.
 
