@@ -165,7 +165,7 @@ hr_by_no_tests <- pairs(estimated_marginal_means,
                         adjust = "none")
 
 # Add confidence intervals for the hazard ratios:
-hr_by_no_tests <- summary(hr_by_no_tests, infer=TRUE)
+hr_by_no_tests <- summary(hr_by_no_tests, infer = TRUE)
 
 # Optionally display as data.table:
 setDT(hr_by_no_tests)
