@@ -20,7 +20,7 @@
 # I.e., you should be able to run the following line:
 # tmerge_data
 
-# Libraries --------------------------------------------------------------------
+# Packages --------------------------------------------------------------------
 library(data.table) # For data handling
 library(survival)   # For coxph
 library(emmeans)    # For emmeans and pairs
@@ -74,6 +74,14 @@ fit <- coxph(Surv(tstart, tstop, event = i_outcome) ~ # Survival object
              data = time_varying_data)
 
 # Extract hazard ratio estimates -----------------------------------------------
+
+# We extract the hazard ratios using the emmeans package. 
+# Note, that specifying the ref_grid-object is not 
+# required, but by enabling the specification of nuisance parameters it reduces 
+# the computation time.
+# The estimated marginal means are not meaningful themselves, but their 
+# contrasts are the required the hazard ratios.
+
 # Estimated marginal means (not reported) are averaged over the confounders:
 reference_grid <- ref_grid(fit, 
                            nuisance = c("f_sex", 
@@ -86,26 +94,20 @@ reference_grid <- ref_grid(fit,
 estimated_marginal_means <- emmeans(reference_grid, 
                                     specs = "f_test")
 
-# Pairwise comparisons of no test, negative test, and positive test:
-pairwise_estimated_marginal_means <- pairs(estimated_marginal_means, 
-                                           type = "response", 
-                                           reverse = TRUE, 
-                                           adjust = "none") 
-confidence_intervals <- confint(pairwise_estimated_marginal_means)
+# Compute hazard ratios of positive versus negative test for each 2-month
+# time interval:
+hr_estimates <- pairs(estimated_marginal_means,
+                        type = "response",
+                        reverse = TRUE,
+                        adjust = "none")
 
-# Format estimates
-data_pairwise <- as.data.table(pairwise_estimated_marginal_means)
-data_pairwise <- data_pairwise[, .(contrast, 
-                                   hazard_ratio = ratio, 
-                                   pvalue = p.value)]
-data_confidence <- as.data.table(confidence_intervals)
-data_confidence <- data_confidence[, .(contrast, 
-                                       confidence_interval_lower = asymp.LCL, 
-                                       confidence_interval_upper = asymp.UCL)]
-estimates <- merge(data_pairwise, 
-                   data_confidence, 
-                   by="contrast")
-estimates
+# Add confidence intervals for the hazard ratios:
+hr_estimates <- summary(hr_estimates, infer = TRUE)
+
+# Optionally display as data.table:
+setDT(hr_estimates)
+hr_estimates
+
 
 # R session info ---------------------------------------------------------------
 # > sessionInfo()

@@ -57,6 +57,8 @@ library(survival)   # For tmerge
 
 # Functions --------------------------------------------------------------------
 convert_date_to_numeric <- function(date) {
+  # Convenience function to change "Date" objects to numeric numbers.
+  # Not strictly required but simplifies some things.
   if(!is(date, "Date")) {
     date <- as.Date(date)
     if(!is(date, "Date")) stop("Failed to coerce 'date' to class 'Date'")

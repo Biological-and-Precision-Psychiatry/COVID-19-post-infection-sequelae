@@ -24,24 +24,10 @@
 # I.e., you should be able to run the following line:
 # tmerge_data
 
-# Libraries --------------------------------------------------------------------
+# Packages --------------------------------------------------------------------
 library(data.table) # For data handling
 library(survival)   # For coxph and survSplit
 library(emmeans)    # For emmeans and pairs
-
-# Functions --------------------------------------------------------------------
-convert_date_to_numeric <- function(date) {
-  if(!is(date, "Date")) {
-    date <- as.Date(date)
-    if(!is(date, "Date")) stop("Failed to coerce 'date' to class 'Date'")
-  }
-  yr <- year(date)
-  dstart <- unclass(as.Date(paste0(yr, "-01-01"), format = "%Y-%m-%d"))
-  dend <- unclass(as.Date(paste0(yr + 1, "-01-01"), format = "%Y-%m-%d"))
-  days_yr <- dend - dstart
-  days <- unclass(date) - dstart
-  yr + days / days_yr
-}
 
 # Construct time-varying data ------------------------------------------------------------
 # 2-month intervals (20 intervals):
@@ -103,7 +89,7 @@ descriptive_table[, rate_ratio := rate / rate[1], f_calendar]
 descriptive_table
 
 # Fit Cox model  ---------------------------------------------------------------
-# Fit Cox model with different effects in each 2-month time interval:
+# Fit Cox model with different hazard ratios in each 2-month time interval:
 fit <- coxph(Surv(tstart, tstop, event = i_outcome) ~ # Survival object
               strata(f_calendar) / f_test +           # Exposure interacting 
                                                       #  with calendar time in
@@ -118,7 +104,7 @@ fit <- coxph(Surv(tstart, tstop, event = i_outcome) ~ # Survival object
               f_charlson_comorbidity_index_parents,                         
              data = calendar_split_data)
 
-# Fit Cox model with same effect to extract p-value for heterogeneity:
+# Fit Cox model with constant hazard ratio to extract p-value for heterogeneity:
 fit0 <- coxph(Surv(tstart, tstop, event = i_outcome) ~ # Survival object
                 strata(f_calendar) +                   # Calendar time in 2-month intervals
                 f_test +                               # Exposure
@@ -140,6 +126,8 @@ pvalue_heterogeneity <- anova(fit, fit0)[2, "Pr(>|Chi|)"]
 # using the emmeans package. Note, that specifying the ref_grid-object is not 
 # required, but by enabling the specification of nuisance parameters it reduces 
 # the computation time.
+# The estimated marginal means are not meaningful themselves, but their 
+# contrasts are the required the hazard ratios.
 
 # Estimated marginal means are averaged over the confounders:
 reference_grid <- ref_grid(fit,
@@ -154,29 +142,19 @@ estimated_marginal_means <- emmeans(reference_grid,
                                     specs = "f_test",
                                     by = "f_calendar")
 
-# Pairwise comparisons of negative test, and positive test:
-pairwise_estimated_marginal_means <- pairs(estimated_marginal_means,
-                                           type = "response",
-                                           reverse = TRUE,
-                                           adjust = "none")
-confidence_intervals <- confint(pairwise_estimated_marginal_means)
+# Compute hazard ratios of positive versus negative test for each 2-month
+# time interval:
+hr_by_2md_interval <- pairs(estimated_marginal_means,
+                            type = "response",
+                            reverse = TRUE,
+                            adjust = "none")
 
-# Format estimates
-data_pairwise <- as.data.table(pairwise_estimated_marginal_means)
-data_pairwise <- data_pairwise[, .(contrast,
-                                   f_calendar,
-                                   hazard_ratio = ratio,
-                                   pvalue = p.value)]
-data_confidence <- as.data.table(confidence_intervals)
-data_confidence <- data_confidence[, .(contrast,
-                                       f_calendar,
-                                       confidence_interval_lower = asymp.LCL,
-                                       confidence_interval_upper = asymp.UCL)]
-estimates <- merge(data_pairwise,
-                   data_confidence,
-                   by=c("contrast", "f_calendar"))
-estimates[, pvalue_heterogeneity := pvalue_heterogeneity]
-estimates
+# Add confidence intervals for the hazard ratios:
+hr_by_2md_interval <- summary(hr_by_2md_interval, infer = TRUE)
+
+# Optionally display as data.table:
+setDT(hr_by_2md_interval)
+hr_by_2md_interval
 
 # R session info ---------------------------------------------------------------
 # > sessionInfo()
