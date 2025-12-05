@@ -150,7 +150,7 @@ hr_by_2md_interval <- pairs(estimated_marginal_means,
                             adjust = "none")
 
 # Add confidence intervals for the hazard ratios:
-hr_by_2md_interval <- summary(hr_by_2md_interval, infer=TRUE)
+hr_by_2md_interval <- summary(hr_by_2md_interval, infer = TRUE)
 
 # Optionally display as data.table:
 setDT(hr_by_2md_interval)
