@@ -13,7 +13,6 @@ In this repository, we show the necessary information to run the analyses from t
 ## Content of the repository:
 
 - R-scripts
-- Meta-data: Description the data required for running the analysis (see the Dataset section under the Requirements section)
 
 ## R-scripts:
 
