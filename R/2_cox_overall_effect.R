@@ -102,7 +102,7 @@ hr_estimates <- pairs(estimated_marginal_means,
                         adjust = "none")
 
 # Add confidence intervals for the hazard ratios:
-hr_estimates <- summary(hr_estimates, infer=TRUE)
+hr_estimates <- summary(hr_estimates, infer = TRUE)
 
 # Optionally display as data.table:
 setDT(hr_estimates)
