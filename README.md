@@ -18,15 +18,15 @@ The R-scripts listed below are available in the `R` folder in this repository. T
   This program creates the time-varying data used for the analyses.
   Requirements: Population and covariate data.
 
-- `2_cox_overall_effect.R`:
+- [`2_cox_overall_effect.R`](R/2_cox_overall_effect.R):
   This program fits a Cox model to estimate the overall effect of test status (no test, negative test, and positive test).
   Requirements: The data created in `1_make_time_varying_data.R`.
 
-- `3_cox_number_of_tests.R`:
+- [`3_cox_number_of_tests.R`](R/3_cox_number_of_tests.R):
   This program creates a new time-varying dataset, splitting at every new (grouped) conducted test. Then it fits a Cox model with effect modification by number of conducted tests.
   Requirements: The data created in `1_make_time_varying_data.R` and test data.
 
-- `4_cox_2_month_intervals.R`:
+- [`4_cox_2_month_intervals.R`](R/4_cox_2_month_intervals.R):
   This program creates a new time-varying dataset by splitting the data in 2-month intervals. Then it fits a Cox model with different hazard ratios per time interval.
   Requirements: The data created in `1_make_time_varying_data.R`.
 
