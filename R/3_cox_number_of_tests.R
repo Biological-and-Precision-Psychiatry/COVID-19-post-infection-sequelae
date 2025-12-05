@@ -150,42 +150,40 @@ fit0 <- coxph(Surv(tstart, tstop, event = i_outcome) ~ # Survival object
 pvalue_heterogeneity <- anova(fit, fit0)[2, "Pr(>|Chi|)"]
 
 # Extract hazard ratio estimates -----------------------------------------------
+
+# We extract the hazard ratios for positive versus negative test by no. tests 
+# using the emmeans package. Note, that specifying the ref_grid-object is not 
+# required, but by enabling the specification of nuisance parameters it reduces 
+# the computation time.
+# The estimated marginal means are not meaningful themselves, but their 
+# contrasts are the required the hazard ratios.
+
 # Estimated marginal means are averaged over the confounders:
-reference_grid <- ref_grid(fit, 
-                           nuisance = c("f_sex", 
-                                        "f_charlson_comorbidity_index", 
-                                        "f_psych_parents", 
-                                        "f_charlson_comorbidity_index_parents", 
-                                        "f_education", 
-                                        "f_work", 
+reference_grid <- ref_grid(fit,
+                           nuisance = c("f_sex",
+                                        "f_charlson_comorbidity_index",
+                                        "f_psych_parents",
+                                        "f_charlson_comorbidity_index_parents",
+                                        "f_education",
+                                        "f_work",
                                         "f_income"))
-estimated_marginal_means <- emmeans(reference_grid, 
-                                    specs = "f_test", 
+estimated_marginal_means <- emmeans(reference_grid,
+                                    specs = "f_test",
                                     by = "f_number_of_tests")
 
-# Pairwise comparisons of negative test, and positive test:
-pairwise_estimated_marginal_means <- pairs(estimated_marginal_means, 
-                                           type = "response", 
-                                           reverse = TRUE, 
-                                           adjust = "none") 
-confidence_intervals <- confint(pairwise_estimated_marginal_means)
+# Compute hazard ratios of positive versus negative test for each 2-month
+# time interval:
+hr_by_no_tests <- pairs(estimated_marginal_means,
+                        type = "response",
+                        reverse = TRUE,
+                        adjust = "none")
 
-# Format estimates
-data_pairwise <- as.data.table(pairwise_estimated_marginal_means)
-data_pairwise <- data_pairwise[, .(contrast, 
-                                   f_number_of_tests, 
-                                   hazard_ratio = ratio, 
-                                   pvalue = p.value)]
-data_confidence <- as.data.table(confidence_intervals)
-data_confidence <- data_confidence[, .(contrast, 
-                                       f_number_of_tests, 
-                                       confidence_interval_lower = asymp.LCL, 
-                                       confidence_interval_upper = asymp.UCL)] 
-estimates <- merge(data_pairwise, 
-                   data_confidence, 
-                   by=c("contrast", "f_number_of_tests"))
-estimates[, pvalue_heterogeneity := pvalue_heterogeneity]
-estimates
+# Add confidence intervals for the hazard ratios:
+hr_by_no_tests <- summary(hr_by_no_tests, infer=TRUE)
+
+# Optionally display as data.table:
+setDT(hr_by_no_tests)
+hr_by_no_tests
 
 # R session info ---------------------------------------------------------------
 # > sessionInfo()
