@@ -18,9 +18,9 @@
 #   - id: Identification number of the individual
 #   - d_start: Start date of record
 #   - d_end: End date of record
-#   - d_first_test: Date of first PCR test, if any
-#   - d_positive_test: Date of first positive PCR test, if any
-#   - d_outcome: Date of outcome, if any
+#   - d_first_test: Date of first PCR test, if any, otherwise NA
+#   - d_positive_test: Date of first positive PCR test, if any, otherwise NA
+#   - d_outcome: Date of outcome, if any, otherwise NA
 #
 # - Covariate data: Individual level data with covariates at the study start 
 #   (one record per person)
