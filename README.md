@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/1099577330.svg)](https://doi.org/10.5281/zenodo.18470295)
+
 # COVID-19-post-infection-sequelae
 
 Paper: COVID-19 post-infection sequelae are comparable to sequelae observed after other infections of similar severity — a nationwide Danish study with 40-month follow-up
