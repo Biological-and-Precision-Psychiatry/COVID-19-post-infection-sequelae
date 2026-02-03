@@ -6,8 +6,6 @@ Paper: COVID-19 post-infection sequelae are comparable to sequelae observed afte
 [Rune H. B. Christensen](https://github.com/runehaubo), 
 [Daniel Kondziella](https://research.regionh.dk/en/persons/daniel-kondziella/), and 
 [Michael E. Benros](https://research.regionh.dk/da/persons/michael-eriksen-benros/)
-- Link to abstract: [updated once paper is published]
-- Status: Currently under review
 
 
 ## R-scripts:
