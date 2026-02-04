@@ -1,6 +1,7 @@
-# Title: Cox 2-month intervals
-# Author: Clara S. Grønkjær
-# Date: 2025-11-24
+# Title:      Cox 2-month intervals
+# Author:     Clara S. Grønkjær
+# Reviewer:   Rune Haubo B. Christensen
+# Date:       2025-11-24
 #
 # Description ------------------------------------------------------------------
 # In this R-script, we fit a Cox model yielding an estimated hazard ratio of 
@@ -26,8 +27,8 @@
 
 # Packages --------------------------------------------------------------------
 library(data.table) # For data handling
-library(survival)   # For coxph and survSplit
-library(emmeans)    # For emmeans and pairs
+library(survival)   # For coxph() and survSplit()
+library(emmeans)    # For emmeans() and pairs()
 
 # Construct time-varying data ------------------------------------------------------------
 # 2-month intervals (20 intervals):
@@ -157,7 +158,7 @@ setDT(hr_by_2md_interval)
 hr_by_2md_interval
 
 # R session info ---------------------------------------------------------------
-# > sessionInfo()
+sessionInfo()
 # R version 4.4.1 (2024-06-14 ucrt)
 # Platform: x86_64-w64-mingw32/x64
 # Running under: Windows Server 2022 x64 (build 20348)

@@ -1,6 +1,7 @@
-# Title: Cox overall effect
-# Author: Clara S. Grønkjær
-# Date: 2025-11-24
+# Title:      Cox overall effect
+# Author:     Clara S. Grønkjær
+# Reviewer:   Rune Haubo B. Christensen
+# Date:       2025-11-24
 #
 # Description ------------------------------------------------------------------
 # In this R-script, we fit a Cox model yielding an estimated hazard ratio the 
@@ -22,8 +23,8 @@
 
 # Packages --------------------------------------------------------------------
 library(data.table) # For data handling
-library(survival)   # For coxph
-library(emmeans)    # For emmeans and pairs
+library(survival)   # For coxph()
+library(emmeans)    # For emmeans() and pairs()
 
 # Format data ------------------------------------------------------------------
 time_varying_data <- copy(tmerge_data)
@@ -110,7 +111,7 @@ hr_estimates
 
 
 # R session info ---------------------------------------------------------------
-# > sessionInfo()
+sessionInfo()
 # R version 4.4.1 (2024-06-14 ucrt)
 # Platform: x86_64-w64-mingw32/x64
 # Running under: Windows Server 2022 x64 (build 20348)

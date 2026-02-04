@@ -1,6 +1,7 @@
-# Title: Cox number of tests
-# Author: Clara S. Grønkjær
-# Date: 2025-11-24
+# Title:      Cox number of tests
+# Author:     Clara S. Grønkjær
+# Reviewer:   Rune Haubo B. Christensen
+# Date:       2025-11-24
 #
 # Description ------------------------------------------------------------------
 # In this R-script, we fit a Cox model yielding an estimated hazard ratio of 
@@ -29,7 +30,8 @@
 #   - f_test: Test status (negative or positive)
 #   - n_test_seq: Sequence number of test
 #
-# I.e., you should be able to run the following lines:
+# I.e., you should be able to run the following lines (after loading the
+# data.table package):
 # tmerge_data
 # test_data[, .(id, d_test, f_test, n_test_seq)]
 
@@ -172,7 +174,7 @@ setDT(hr_by_no_tests)
 hr_by_no_tests
 
 # R session info ---------------------------------------------------------------
-# > sessionInfo()
+sessionInfo()
 # R version 4.4.1 (2024-06-14 ucrt)
 # Platform: x86_64-w64-mingw32/x64
 # Running under: Windows Server 2022 x64 (build 20348)

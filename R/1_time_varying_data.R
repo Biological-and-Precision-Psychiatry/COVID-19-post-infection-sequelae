@@ -1,13 +1,14 @@
-# Title: Make time-varying data
-# Author: Clara S. Grønkjær
-# Date: 2025-11-24
+# Title:      Make time-varying data
+# Author:     Clara S. Grønkjær
+# Reviewer:   Rune Haubo B. Christensen
+# Date:       2025-11-24
 #
 # Description ------------------------------------------------------------------
 # In this R-script, we create the time-varying data used in analyses.
 #
 # Content ----------------------------------------------------------------------
 # - Load data sets
-# - Construct time-varying data using tmerge
+# - Construct time-varying data using tmerge()
 # - Format data
 #
 # Requirements -----------------------------------------------------------------
@@ -34,7 +35,8 @@
 #   - f_charlson_comorbidity_index_parents: Parents' Charlson comorbidity index
 #   - f_psych_parents: Indicator of whether the parents have a psychiatric diagnosis
 # 
-# I.e., you should be able to run the following lines:
+# That is, you should be able to run the following lines (after loading the
+# data.table package):
 # population_data[, .(id, 
 #                     d_start, 
 #                     d_end, 
@@ -53,7 +55,7 @@
 # 
 # Packages ---------------------------------------------------------------------
 library(data.table) # For data handling
-library(survival)   # For tmerge
+library(survival)   # For tmerge()
 
 # Functions --------------------------------------------------------------------
 convert_date_to_numeric <- function(date) {
@@ -103,7 +105,7 @@ tmerge_data <- tmerge(covariate_data[, .(id,
                       options = list(idname = "id"))
 
 # R session info ---------------------------------------------------------------
-# > sessionInfo()
+sessionInfo()
 # R version 4.4.1 (2024-06-14 ucrt)
 # Platform: x86_64-w64-mingw32/x64
 # Running under: Windows Server 2022 x64 (build 20348)
