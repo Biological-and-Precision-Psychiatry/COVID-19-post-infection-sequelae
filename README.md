@@ -1,14 +1,16 @@
 [![DOI](https://zenodo.org/badge/1099577330.svg)](https://doi.org/10.5281/zenodo.18470295)
 
-# COVID-19-post-infection-sequelae
+# COVID-19 post-infection sequelae are comparable to sequelae observed after other infections of similar severity — a nationwide Danish study with 40-month follow-up
 
-Paper: COVID-19 post-infection sequelae are comparable to sequelae observed after other infections of similar severity — a nationwide Danish study with 40-month follow-up
+
 
 - Authors: [Clara S. Grønkjær](https://github.com/claragronkjar), 
 [Rune H. B. Christensen](https://github.com/runehaubo), 
 [Daniel Kondziella](https://research.regionh.dk/en/persons/daniel-kondziella/), and 
 [Michael E. Benros](https://research.regionh.dk/da/persons/michael-eriksen-benros/)
+- A scientific paper under review in [Nature Communications](https://www.nature.com/ncomms/)
 
+This repository contains R-code to replicate the results presented in the paper.
 
 ## R-scripts:
 
